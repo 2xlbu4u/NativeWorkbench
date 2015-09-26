@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProjectGuid>{A717AD5D-C5B5-4769-BD40-F14C09F269BB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NativeWorkbench</RootNamespace>
+    <AssemblyName>NativeWorkbench</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ScriptHookVDotNet, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\ScriptHookVDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\ScriptHookV.dll" />
+    <Content Include="lib\ScriptHookVDotNet.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReleaseNotes.txt" />
+    <None Include="app.config" />
+    <None Include="Resources\natives.txt" />
+    <EmbeddedResource Include="natives.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CSCompile.cs" />
+    <Compile Include="EditProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditProperty.Designer.cs">
+      <DependentUpon>EditProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NativeWorkbenchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NativeWorkbenchForm.Designer.cs">
+      <DependentUpon>NativeWorkbenchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NativeManager.cs" />
+    <Compile Include="NativeObjects.cs" />
+    <Compile Include="NativeWorkbenchScript.cs" />
+    <Compile Include="DebugFormLauncher.cs" />
+    <Compile Include="PropertiesControl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaveLoad.cs" />
+    <Compile Include="Snippets.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="EditProperty.resx">
+      <DependentUpon>EditProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NativeWorkbenchForm.resx">
+      <DependentUpon>NativeWorkbenchForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Echo ON
+xcopy /y  "$(TargetDir)NativeWorkbench.dll" "C:\Users\John\Documents\GTAV Mods\scripts\*.*"
+xcopy /y  "$(TargetDir)NativeWorkbench.pdb" "C:\Users\John\Documents\GTAV Mods\scripts\*.*"
+
+</PostBuildEvent>
+  </PropertyGroup>
+</Project>
